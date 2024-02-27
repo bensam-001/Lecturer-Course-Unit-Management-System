@@ -1,0 +1,70 @@
+type CourseUnit = record {
+  id : text;
+  semester : text;
+  name : text;
+  createdAt : nat64;
+  year : float64;
+  updatedAt : opt nat64;
+  lecturerId : text;
+};
+type CourseUnitPayload = record {
+  semester : text;
+  name : text;
+  year : float64;
+  lecturerId : text;
+};
+type Lecturer = record {
+  id : text;
+  hireDate : text;
+  name : text;
+  createdAt : nat64;
+  email : text;
+  updatedAt : opt nat64;
+  department : text;
+};
+type LecturerPayload = record {
+  hireDate : text;
+  name : text;
+  email : text;
+  department : text;
+};
+type _AzleResult = variant { Ok : CourseUnit; Err : text };
+type _AzleResult_1 = variant { Ok : Lecturer; Err : text };
+type _AzleResult_2 = variant { Ok : vec CourseUnit; Err : text };
+type _AzleResult_3 = variant { Ok : float64; Err : text };
+type _AzleResult_4 = variant { Ok : vec Lecturer; Err : text };
+service : () -> {
+  addCourseUnit : (CourseUnitPayload) -> (_AzleResult);
+  addLecturer : (LecturerPayload) -> (_AzleResult_1);
+  deleteCourseUnit : (text) -> (_AzleResult);
+  deleteLecturer : (text) -> (_AzleResult_1);
+  getCourseUnit : (text) -> (_AzleResult) query;
+  getCourseUnits : () -> (_AzleResult_2) query;
+  getCourseUnitsByLecturer : (text) -> (_AzleResult_2) query;
+  getCourseUnitsBySemester : (text) -> (_AzleResult_2) query;
+  getCourseUnitsBySemesterAndYear : (text, float64) -> (_AzleResult_2) query;
+  getCourseUnitsByYear : (float64) -> (_AzleResult_2) query;
+  getCourseUnitsSortedByName : () -> (_AzleResult_2) query;
+  getCourseUnitsWithPagination : (float64, float64) -> (_AzleResult_2) query;
+  getLecturer : (text) -> (_AzleResult_1) query;
+  getLecturerByEmail : (text) -> (_AzleResult_1) query;
+  getLecturerCountByDepartment : (text) -> (_AzleResult_3) query;
+  getLecturers : () -> (_AzleResult_4) query;
+  getLecturersByDepartment : (text) -> (_AzleResult_4) query;
+  getLecturersByDepartmentAndHireYear : (text, float64) -> (
+      _AzleResult_4,
+    ) query;
+  getLecturersByHireDateRange : (text, text) -> (_AzleResult_4) query;
+  getLecturersByHireYear : (float64) -> (_AzleResult_4) query;
+  getLecturersSortedByName : () -> (_AzleResult_4) query;
+  getLecturersWithPagination : (float64, float64) -> (_AzleResult_4) query;
+  searchCourseUnitsByName : (text) -> (_AzleResult_2) query;
+  searchLecturersByName : (text) -> (_AzleResult_4) query;
+  updateCourseUnit : (text, CourseUnitPayload) -> (_AzleResult);
+  updateCourseUnitLecturer : (text, text) -> (_AzleResult);
+  updateCourseUnitName : (text, text) -> (_AzleResult);
+  updateLecturer : (text, LecturerPayload) -> (_AzleResult_1);
+  updateLecturerDepartment : (text, text) -> (_AzleResult_1);
+  updateLecturerEmail : (text, text) -> (_AzleResult_1);
+  updateLecturerName : (text, text) -> (_AzleResult_1);
+}
