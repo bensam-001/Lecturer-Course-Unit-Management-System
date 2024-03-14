@@ -225,19 +225,6 @@ export function getLecturerByEmail(email: string): Result<Lecturer, string> {
 }
 
 /**
- * Retrieves lecturers hired in a specific year.
- * @param year The year to filter lecturers by hire date.
- * @returns A Result containing a list of lecturers hired in the specified year if successful, or an error message if failed.
- */
-$query;
-export function getLecturersByHireYear(year: number): Result<Vec<Lecturer>, string> {
-    const lecturersByYear = lecturerStorage
-        .values()
-        .filter(lecturer => new Date(lecturer.hireDate).getFullYear() === year);
-    return Result.Ok(lecturersByYear);
-}
-
-/**
  * Retrieves the count of lecturers in a specific department.
  * @param department The department to count lecturers for.
  * @returns A Result containing the count of lecturers in the specified department if successful, or an error message if failed.
@@ -298,18 +285,6 @@ $query;
 export function getLecturersSortedByName(): Result<Vec<Lecturer>, string> {
     const sortedLecturers = lecturerStorage.values().sort((a, b) => a.name.localeCompare(b.name));
     return Result.Ok(sortedLecturers);
-}
-
-/**
- * Retrieves lecturers by department and hire year.
- * @param department The department to filter lecturers by.
- * @param year The year to filter lecturers by hire date.
- * @returns A Result containing a list of lecturers if successful, or an error message if failed.
- */
-$query;
-export function getLecturersByDepartmentAndHireYear(department: string, year: number): Result<Vec<Lecturer>, string> {
-    const filteredLecturers = lecturerStorage.values().filter(lecturer => lecturer.department === department && new Date(lecturer.hireDate).getFullYear() === year);
-    return Result.Ok(filteredLecturers);
 }
 
 /**
